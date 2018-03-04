@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fjw.mapper.CrmStaffMapper" >
+  <resultMap id="BaseResultMap" type="com.fjw.pojo.CrmStaff" >
+    <id column="staffId" property="staffid" jdbcType="VARCHAR" />
+    <result column="loginName" property="loginname" jdbcType="VARCHAR" />
+    <result column="loginPwd" property="loginpwd" jdbcType="VARCHAR" />
+    <result column="staffName" property="staffname" jdbcType="VARCHAR" />
+    <result column="gender" property="gender" jdbcType="VARCHAR" />
+    <result column="onDutyDate" property="ondutydate" jdbcType="TIMESTAMP" />
+    <result column="postId" property="postid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    staffId, loginName, loginPwd, staffName, gender, onDutyDate, postId
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.fjw.pojo.CrmStaffExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from crm_staff
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from crm_staff
+    where staffId = #{staffid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from crm_staff
+    where staffId = #{staffid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.fjw.pojo.CrmStaffExample" >
+    delete from crm_staff
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.fjw.pojo.CrmStaff" >
+    insert into crm_staff (staffId, loginName, loginPwd, 
+      staffName, gender, onDutyDate, 
+      postId)
+    values (#{staffid,jdbcType=VARCHAR}, #{loginname,jdbcType=VARCHAR}, #{loginpwd,jdbcType=VARCHAR}, 
+      #{staffname,jdbcType=VARCHAR}, #{gender,jdbcType=VARCHAR}, #{ondutydate,jdbcType=TIMESTAMP}, 
+      #{postid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.fjw.pojo.CrmStaff" >
+    insert into crm_staff
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="staffid != null" >
+        staffId,
+      </if>
+      <if test="loginname != null" >
+        loginName,
+      </if>
+      <if test="loginpwd != null" >
+        loginPwd,
+      </if>
+      <if test="staffname != null" >
+        staffName,
+      </if>
+      <if test="gender != null" >
+        gender,
+      </if>
+      <if test="ondutydate != null" >
+        onDutyDate,
+      </if>
+      <if test="postid != null" >
+        postId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="staffid != null" >
+        #{staffid,jdbcType=VARCHAR},
+      </if>
+      <if test="loginname != null" >
+        #{loginname,jdbcType=VARCHAR},
+      </if>
+      <if test="loginpwd != null" >
+        #{loginpwd,jdbcType=VARCHAR},
+      </if>
+      <if test="staffname != null" >
+        #{staffname,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="ondutydate != null" >
+        #{ondutydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="postid != null" >
+        #{postid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.fjw.pojo.CrmStaffExample" resultType="java.lang.Integer" >
+    select count(*) from crm_staff
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update crm_staff
+    <set >
+      <if test="record.staffid != null" >
+        staffId = #{record.staffid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loginname != null" >
+        loginName = #{record.loginname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loginpwd != null" >
+        loginPwd = #{record.loginpwd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.staffname != null" >
+        staffName = #{record.staffname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gender != null" >
+        gender = #{record.gender,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ondutydate != null" >
+        onDutyDate = #{record.ondutydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.postid != null" >
+        postId = #{record.postid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update crm_staff
+    set staffId = #{record.staffid,jdbcType=VARCHAR},
+      loginName = #{record.loginname,jdbcType=VARCHAR},
+      loginPwd = #{record.loginpwd,jdbcType=VARCHAR},
+      staffName = #{record.staffname,jdbcType=VARCHAR},
+      gender = #{record.gender,jdbcType=VARCHAR},
+      onDutyDate = #{record.ondutydate,jdbcType=TIMESTAMP},
+      postId = #{record.postid,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fjw.pojo.CrmStaff" >
+    update crm_staff
+    <set >
+      <if test="loginname != null" >
+        loginName = #{loginname,jdbcType=VARCHAR},
+      </if>
+      <if test="loginpwd != null" >
+        loginPwd = #{loginpwd,jdbcType=VARCHAR},
+      </if>
+      <if test="staffname != null" >
+        staffName = #{staffname,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        gender = #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="ondutydate != null" >
+        onDutyDate = #{ondutydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="postid != null" >
+        postId = #{postid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where staffId = #{staffid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fjw.pojo.CrmStaff" >
+    update crm_staff
+    set loginName = #{loginname,jdbcType=VARCHAR},
+      loginPwd = #{loginpwd,jdbcType=VARCHAR},
+      staffName = #{staffname,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=VARCHAR},
+      onDutyDate = #{ondutydate,jdbcType=TIMESTAMP},
+      postId = #{postid,jdbcType=VARCHAR}
+    where staffId = #{staffid,jdbcType=VARCHAR}
+  </update>
+
+  <!--修改密码-->
+  <update id="updateLoginPwd" parameterType="com.fjw.pojo.CrmStaff">
+     update crm_staff set loginPwd = #{loginpwd}
+    where staffId = #{staffid}
+  </update>
+
+
+  <resultMap id="StaffInfos" type="com.fjw.pojo.CrmStaff">
+    <id column="staffId" property="staffid"></id>
+    <result column="staffName" property="staffname"></result>
+    <result column="gender" property="gender"></result>
+    <result column="onDutyDate" property="ondutydate"></result>
+    <result column="loginName" property="loginname"></result>
+    <result column="loginPwd" property="loginpwd"></result>
+    <!--一个员工对应一个职务-->
+    <association property="crmPost" javaType="com.fjw.pojo.CrmPost">
+      <id column="postId" property="postid"></id>
+      <result column="postName" property="postname"></result>
+      <!--一个职务对应一个部门-->
+      <association property="crmDepartment" javaType="com.fjw.pojo.CrmDepartment">
+        <id column="depId" property="depid"></id>
+        <result column="depName" property="depname"></result>
+      </association>
+    </association>
+  </resultMap>
+  <!--三表联合查询：查询所有员工信息-->
+  <select id="selectAllStaffsInfosByPage" resultMap="StaffInfos">
+    SELECT
+      crm_staff.staffId,
+      crm_staff.staffName,
+      crm_staff.gender,
+      crm_staff.onDutyDate,
+      crm_staff.loginName,
+      crm_staff.loginPwd,
+
+      crm_post.postId,
+      crm_post.postName,
+
+      crm_department.depId,
+      crm_department.depName
+
+      FROM crm_staff JOIN crm_post ON crm_staff.postId=crm_post.postId
+	  JOIN crm_department ON crm_post.depId=crm_department.depId
+
+  </select>
+
+  <!--高级查询，查询员工信息-->
+  <select id="findStaffInfosByConditon" parameterType="com.fjw.pojo.CrmStaff" resultMap="StaffInfos">
+    SELECT
+      crm_staff.staffId,
+      crm_staff.staffName,
+      crm_staff.gender,
+      crm_staff.onDutyDate,
+      crm_staff.loginName,
+      crm_staff.loginPwd,
+
+      crm_post.postId,
+      crm_post.postName,
+
+      crm_department.depId,
+      crm_department.depName
+
+    FROM crm_staff JOIN crm_post ON crm_staff.postId=crm_post.postId
+	JOIN crm_department ON crm_post.depId=crm_department.depId
+	<where>
+      <if test="crmPost!=null and crmPost!=''">
+        <if test="crmPost.crmDepartment!=null and crmPost.crmDepartment!=''">
+          <if test="crmPost.crmDepartment.depid!=null and crmPost.crmDepartment.depid!=''">
+            and crm_department.depId=#{crmPost.crmDepartment.depid}
+          </if>
+        </if>
+      </if>
+      <if test="crmPost!=null and crmPost!=''">
+        <if test="crmPost.postid!=null and crmPost.postid!=''">
+          and crm_post.postId=#{crmPost.postid}
+        </if>
+      </if>
+      <if test="staffname!=null and staffname!=''">
+          and  crm_staff.staffName like "%${staffname}%"
+      </if>
+    </where>
+  </select>
+
+  <!--根据员工id查询员工信息-->
+  <select id="findStaffInfosById" parameterType="string" resultMap="StaffInfos">
+    SELECT
+      crm_staff.staffId,
+      crm_staff.staffName,
+      crm_staff.gender,
+      crm_staff.onDutyDate,
+      crm_staff.loginName,
+      crm_staff.loginPwd,
+
+      crm_post.postId,
+      crm_post.postName,
+
+      crm_department.depId,
+      crm_department.depName
+
+    FROM crm_staff JOIN crm_post ON crm_staff.postId=crm_post.postId
+	JOIN crm_department ON crm_post.depId=crm_department.depId
+	WHERE crm_staff.staffId=#{staffid}
+  </select>
+</mapper>
